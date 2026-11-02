@@ -1,59 +1,32 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import {
   Container,
   Box,
   Typography,
   CircularProgress,
   Grid,
+  Paper,
 } from "@mui/material";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
-import { SearchFilters } from "@/types/search_filters";
 import { filterColleges } from "@/lib/api";
-import FilterSidebar from "@/components/search/FilterSidebar";
 
 function SearchContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Parse URL params into an object
-  const getFiltersFromURL = useCallback(() => {
-    // If searchParams is null, fall back to an empty string or default behavior
-    const params = searchParams;
-
-    // return the filters, fallback to default filters if not found in URL
-    return {
-      // default sorting is by accessibility score from high to low
-      sort_by: params?.get("sort_by") || "a11y_high_low",
-      state: params?.get("state") || "",
-      // we only care about the value of the has_disability_cultural_center if it is true. If the box
-      // is unchecked, we want to show both colleges with and without dcc, so the "false" doesn't
-      // really impact filtering. It is basically true or none.
-      has_disability_cultural_center:
-        params?.get("has_disability_cultural_center") === "true",
-      min_safety: Number(params?.get("min_safety")) || 0,
-      min_inclusivity: Number(params?.get("min_inclusivity")) || 0,
-    };
-  }, [searchParams]);
+  const [selectedColleges, setSelectedColleges] = useState<College[]>([]);
 
   const loadData = useCallback(async () => {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
     setLoading(true);
     try {
-      const filters = getFiltersFromURL();
-      // pass the filters to the filterColleges route
-      const data = await filterColleges(filters);
-      // the colleges to display are the result of the query with filters
+      const data = await filterColleges({});
       setColleges(data);
     } catch (error) {
       const errorMessage =
@@ -64,69 +37,108 @@ function SearchContent() {
     } finally {
       setLoading(false);
     }
-  }, [getFiltersFromURL]);
+  }, []);
 
   useEffect(() => {
-    // check if search is enabled before trying to load data (find the colleges to display)
     if (!FEATURE_FLAGS.isSearchEnabled) return;
     loadData();
   }, [loadData]);
 
-  const handleApplyFilters = (newFilters: SearchFilters) => {
-    const params = new URLSearchParams();
-    Object.entries(newFilters).forEach(([key, value]) => {
-      if (value) params.set(key, value.toString());
+  const handleCompareToggle = (college: College) => {
+    setSelectedColleges((prev) => {
+      const isSelected = prev.some((c) => c.slug === college.slug);
+      if (isSelected) {
+        return prev.filter((c) => c.slug !== college.slug);
+      } else {
+        return [...prev, college];
+      }
     });
-    router.push(`/search?${params.toString()}`);
   };
 
-  // if the search flag is disabled, show the not found screen.
+  const isCollegeSelected = (college: College) => {
+    return selectedColleges.some((c) => c.slug === college.slug);
+  };
+
   if (!FEATURE_FLAGS.isSearchEnabled) return <NotFound />;
 
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
-      {/* Main content area with filters on the left and the college cards 
-      with the results on the right */}
-      <Grid container spacing={4}>
-        {/* Left Side: Filter Sidebar */}
-        <Grid size={{ xs: 12, md: 3 }}>
-          <FilterSidebar
-            currentFilters={getFiltersFromURL()}
-            onApply={handleApplyFilters}
-          />
-        </Grid>
 
-        {/* Right Side: Results Grid */}
-        <Grid size={{ xs: 12, md: 9 }}>
-          {loading ? (
-            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-              <CircularProgress color="primary" />
-            </Box>
-          ) : error ? (
-            <Typography color="error" textAlign="center">
-              {error}
-            </Typography>
-          ) : (
-            <Grid
-              container
-              spacing={3}
-              component="ul"
-              aria-label="List of colleges"
+      {/* Explore Universities Section */}
+      <Typography
+        variant="h5"
+        component="h2"
+        sx={{ mt: 6, mb: 4, fontWeight: 600, color: "text.primary" }}
+      >
+        Explore Universities
+      </Typography>
+
+      {/* College Results Grid */}
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+          <CircularProgress color="primary" />
+        </Box>
+      ) : error ? (
+        <Typography color="error" textAlign="center">
+          {error}
+        </Typography>
+      ) : (
+        <>
+          <Grid
+            container
+            spacing={2}
+            component="ul"
+            aria-label="List of colleges"
+          >
+            {colleges.map((college) => (
+              <Grid
+                key={college.slug}
+                size={{ xs: 12, sm: 6, md: 4 }}
+                component="li"
+              >
+                <CollegeCard
+                  college={college}
+                  onCompareToggle={handleCompareToggle}
+                  isSelected={isCollegeSelected(college)}
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Comparison Section */}
+          {selectedColleges.length > 0 && (
+            <Paper
+              sx={{
+                mt: 6,
+                p: 3,
+                bgcolor: "background.paper",
+                border: "2px solid",
+                borderColor: "divider",
+                borderRadius: 2,
+              }}
             >
-              {colleges.map((college) => (
-                <Grid
-                  key={college.slug}
-                  size={{ xs: 12, sm: 6, lg: 4 }}
-                  component="li"
-                >
-                  <CollegeCard college={college} />
-                </Grid>
-              ))}
-            </Grid>
+              <Typography
+                variant="h5"
+                component="h2"
+                sx={{ mb: 3, fontWeight: 600 }}
+              >
+                Compare ({selectedColleges.length})
+              </Typography>
+
+              {/* Comparison placeholder */}
+              <Box sx={{ p: 3, bgcolor: "#f5f5f5", borderRadius: 1, textAlign: "center" }}>
+                <Typography color="text.secondary" sx={{ mb: 2 }}>
+                  Comparing: {selectedColleges.map((c) => c.name).join(", ")}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Comparison details coming soon...
+                </Typography>
+              </Box>
+            </Paper>
           )}
-        </Grid>
-      </Grid>
+        </>
+      )}
     </Container>
   );
 }
