@@ -100,7 +100,11 @@ const CollegeCard = (props: CollegeCardProps) => {
 
         {/* Ratings Section */}
         <Box sx={{ my: variant === "card" ? 1 : 2 }}>
-          <RatingsSection ratings={college.ratings || {}} />
+          <RatingsSection 
+            ratings={college.ratings || {}} 
+            categoryRatings={college.category_rating_averages}
+            variant={variant === "hero" ? "full" : "compact"}
+          />
         </Box>
 
         {/* Footer with reviews count and actions */}

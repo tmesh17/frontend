@@ -15,6 +15,23 @@ const ARRAY_FIELDS = new Set([
 const normalizeAnswers = (answers: Answer) =>
   Object.fromEntries(
     Object.entries(answers).map(([key, value]) => {
+      // Handle date range answers - map to start/end year
+      if (key === "attendance_years" && value instanceof Date) {
+        // This shouldn't happen as date-range should return an object
+        return [key, value.toISOString()];
+      }
+
+      // Handle date range object (has startYear and endYear)
+      if (
+        key === "attendance_years" &&
+        typeof value === "object" &&
+        value !== null
+      ) {
+        // Store as separate fields for the backend
+        // The backend expects "attendance_years_start" and "attendance_years_end"
+        return [key, value]; // Keep as is, will be flattened below
+      }
+
       if (value instanceof Date) {
         //convert dates to ISO string
         return [key, value.toISOString()];
@@ -48,23 +65,11 @@ const getErrorMessage = async (
 };
 
 export const submitReview = async (answers: Answer) => {
-  //check for user session and get access token for authenticated request before submitting review
-  const {
-    data: { session },
-    error: sessionError,
-  } = await supabase.auth.getSession();
-
-  if (sessionError || !session) {
-    throw new Error("User session not found. Please sign in again.");
-  }
-
-  const token = session.access_token;
-
+  // Authentication is no longer required for review submission
   const response = await fetch(`${API_BASE_URL}/v0/reviews`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ answers: normalizeAnswers(answers) }),
   });

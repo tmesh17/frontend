@@ -6,6 +6,8 @@ import {
   FormHelperText,
   Typography,
   Stack,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Rating, Radio, RadioGroup, TextField, Checkbox } from "@mui/material";
 import { Question } from "@/types/review_qa";
@@ -28,13 +30,14 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
   const renderInput = (question: Question) => {
     switch (question.type) {
       case "star-rating":
+      case "star-rating-optional":
         return (
           <Rating
             name={question.id}
             id={question.id}
             aria-labelledby={`${question.id}-label`}
             aria-required={question.required}
-            value={typeof value === "number" ? value : null}
+            value={typeof value === "number" ? value : 0}
             onChange={(e, newValue) => onChange?.(question.id, newValue)}
           />
         );
@@ -71,7 +74,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                 views={["year"]}
                 format="YYYY"
                 onChange={(newValue) =>
-                  onChange?.(`${question.id}_start`, newValue?.year() ?? null)
+                  onChange?.(`attendance_years_start`, newValue?.year() ?? null)
                 }
               />
               <DatePicker
@@ -80,7 +83,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                 views={["year"]}
                 format="YYYY"
                 onChange={(newValue) =>
-                  onChange?.(`${question.id}_end`, newValue?.year() ?? null)
+                  onChange?.(`attendance_years_end`, newValue?.year() ?? null)
                 }
               />
             </Stack>
@@ -94,12 +97,32 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             label="Type your answer here..."
             aria-labelledby={`${question.id}-label`}
             required={question.required}
-            multiline
-            maxRows={4}
+            multiline={question.multiline}
+            maxRows={question.multiline ? 6 : 1}
             fullWidth
+            placeholder={question.placeholder}
             value={value || ""}
             onChange={(e) => onChange?.(question.id, e.target.value)}
           />
+        );
+      case "select":
+        return (
+          <Select
+            name={question.id}
+            id={question.id}
+            value={value || ""}
+            onChange={(e) => onChange?.(question.id, e.target.value)}
+            fullWidth
+          >
+            <MenuItem value="">
+              <em>-- Select an option --</em>
+            </MenuItem>
+            {question.options.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
         );
       case "multiple-choice":
         const selectedOptions = Array.isArray(value) ? value : [];
@@ -116,6 +139,30 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                       const nextSelections = e.target.checked
                         ? [...selectedOptions, option]
                         : selectedOptions.filter((item) => item !== option);
+                      onChange?.(question.id, nextSelections);
+                    }}
+                  />
+                }
+                label={option}
+              />
+            ))}
+          </FormGroup>
+        );
+      case "multi-select":
+        const selectedTopics = Array.isArray(value) ? value : [];
+        return (
+          <FormGroup>
+            {question.options.map((option, index) => (
+              <FormControlLabel
+                key={index}
+                control={
+                  <Checkbox
+                    name={`${question.id}-option-${index}`}
+                    checked={selectedTopics.includes(option)}
+                    onChange={(e) => {
+                      const nextSelections = e.target.checked
+                        ? [...selectedTopics, option]
+                        : selectedTopics.filter((item) => item !== option);
                       onChange?.(question.id, nextSelections);
                     }}
                   />
@@ -151,10 +198,15 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
       <FormLabel
         component="legend"
         id={`${question.id}-label`}
-        sx={{ whiteSpace: "pre-line" }}
+        sx={{ whiteSpace: "pre-line", mb: 1 }}
       >
         {question.question}
       </FormLabel>
+      {question.subtext && (
+        <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
+          {question.subtext}
+        </Typography>
+      )}
       {question.helpText && (
         <FormHelperText>{question.helpText}</FormHelperText>
       )}
