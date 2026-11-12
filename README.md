@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# College Score Frontend
 
-## Getting Started
+Next.js application for the College Score project.
 
-First, run the development server:
+## Quick Start
+
+### Prerequisites
+
+- Node.js 18+ (with npm)
+- A running backend server (see backend README)
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment
+
+Create a `.env.local` file in the frontend directory:
+
+```bash
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+```
+
+This tells the frontend where to find the backend API.
+
+### 3. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running with Backend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Both the frontend and backend must run simultaneously in separate terminal windows.
+
+### Terminal 1: Backend
+
+```bash
+cd backend/backend
+source venv/bin/activate
+uvicorn main:app --reload --port 8000
+```
+
+### Terminal 2: Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+The frontend will automatically connect to the backend API at `http://127.0.0.1:8000` once both are running.
+
+## Environment Configuration
+
+The following environment variables are available:
+
+- `NEXT_PUBLIC_API_URL` — Backend API URL (default: `http://127.0.0.1:8000`)
+
+These must be prefixed with `NEXT_PUBLIC_` to be accessible in the browser.
+
+## Available Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm start` — Start production server
+- `npm run lint` — Run ESLint
+- `npm run format:check` — Check code formatting
+- `npm run format:fix` — Fix code formatting
+- `npm run type-check` — Check TypeScript types
+- `npm test` — Run tests
+
+## Project Structure
+
+```
+src/
+├── app/               # Next.js app directory (pages, layouts)
+├── components/        # Reusable React components
+├── lib/              # Utilities and helpers
+├── types/            # TypeScript type definitions
+└── styles/           # Global and component styles
+```
+
+## Tech Stack
+
+- **Framework:** Next.js 16
+- **UI Library:** Material-UI (MUI)
+- **Styling:** Tailwind CSS + Emotion
+- **State Management:** React Hooks
+- **API Client:** Fetch API
+- **Database:** Supabase (via backend)
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Material-UI Documentation](https://mui.com/material-ui/getting-started/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Troubleshooting
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Backend API not connecting?**
+- Verify `NEXT_PUBLIC_API_URL` is set correctly in `.env.local`
+- Ensure the backend is running on `http://127.0.0.1:8000`
+- Check browser console for CORS errors
 
-## Deploy on Vercel
+**Development server not starting?**
+- Delete `node_modules` and `.next` directory
+- Run `npm install` again
+- Restart the dev server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Port 3001 already in use?**
+```bash
+kill -9 $(lsof -ti:3001)
+```
