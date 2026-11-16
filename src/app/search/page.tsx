@@ -12,9 +12,11 @@ import {
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
+import CompareTable from "@/components/search/CompareTable";
+import { MAX_COMPARE, toCompareCollege } from "@/components/search/CompareData";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
-import { filterColleges } from "@/lib/api";
+import { filterColleges, getCollege } from "@/lib/api";
 
 function SearchContent() {
   const [colleges, setColleges] = useState<College[]>([]);
@@ -22,6 +24,8 @@ function SearchContent() {
   const [error, setError] = useState<string | null>(null);
   const [selectedColleges, setSelectedColleges] = useState<College[]>([]);
   const [searchResults, setSearchResults] = useState<College[]>([]);
+  // Full college records (with accessibility info), keyed by slug
+  const [details, setDetails] = useState<Record<string, College>>({});
 
   const loadData = useCallback(async () => {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
@@ -45,10 +49,10 @@ function SearchContent() {
     loadData();
   }, [loadData]);
 
+  // ---- Search (teammate) ----
   const handleSearchSelect = (college: College | null) => {
     if (college) {
-      // Check if already in search results
-      const alreadySelected = searchResults.some(c => c.slug === college.slug);
+      const alreadySelected = searchResults.some((c) => c.slug === college.slug);
       if (!alreadySelected) {
         setSearchResults([...searchResults, college]);
       }
@@ -56,18 +60,43 @@ function SearchContent() {
   };
 
   const removeSearchResult = (slug: string) => {
-    setSearchResults(searchResults.filter(c => c.slug !== slug));
+    setSearchResults(searchResults.filter((c) => c.slug !== slug));
   };
 
+  // The search box can return a lighter version of a college, so use the full
+  // record from the loaded list when we have it (it includes the ratings).
+  const searchResultsFull = searchResults.map(
+    (c) => colleges.find((full) => full.slug === c.slug) ?? c
+  );
+
+  // ---- Compare (yours) ----
+  // The list may leave out accessibility info, so fetch the full record
+  // for any college that gets added to the comparison.
+  const loadDetails = (slug: string) => {
+    if (details[slug]) return;
+    getCollege(slug)
+      .then((full) => setDetails((prev) => ({ ...prev, [slug]: full })))
+      .catch(() => {
+        // If this fails, the table just falls back to the list data
+      });
+  };
+
+  // Adds or removes a college from the comparison (max 3)
   const handleCompareToggle = (college: College) => {
-    setSelectedColleges((prev) => {
-      const isSelected = prev.some((c) => c.slug === college.slug);
-      if (isSelected) {
-        return prev.filter((c) => c.slug !== college.slug);
-      } else {
-        return [...prev, college];
-      }
-    });
+    const isSelected = selectedColleges.some((c) => c.slug === college.slug);
+    if (!isSelected && selectedColleges.length >= MAX_COMPARE) return;
+
+    if (isSelected) {
+      setSelectedColleges((prev) => prev.filter((c) => c.slug !== college.slug));
+    } else {
+      setSelectedColleges((prev) => [...prev, college]);
+      loadDetails(college.slug);
+    }
+  };
+
+  // Used by the X button in the comparison table
+  const handleRemoveFromCompare = (slug: string) => {
+    setSelectedColleges((prev) => prev.filter((c) => c.slug !== slug));
   };
 
   const isCollegeSelected = (college: College) => {
@@ -81,7 +110,7 @@ function SearchContent() {
       <SearchHero onSearchSelect={handleSearchSelect} />
 
       {/* Search Results Section */}
-      {searchResults.length > 0 && (
+      {searchResultsFull.length > 0 && (
         <>
           <Typography
             variant="h5"
@@ -97,7 +126,7 @@ function SearchContent() {
             component="ul"
             aria-label="Search results"
           >
-            {searchResults.map((college) => (
+            {searchResultsFull.map((college) => (
               <Grid
                 key={college.slug}
                 size={{ xs: 12, sm: 6, md: 4 }}
@@ -193,20 +222,26 @@ function SearchContent() {
               <Typography
                 variant="h5"
                 component="h2"
-                sx={{ mb: 3, fontWeight: 600 }}
+                sx={{ mb: 1, fontWeight: 600 }}
               >
                 Compare ({selectedColleges.length})
               </Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: "text.secondary" }}
+                aria-live="polite"
+              >
+                {selectedColleges.length >= MAX_COMPARE
+                  ? `You've added ${MAX_COMPARE} colleges. Remove one to add another.`
+                  : `Add up to ${MAX_COMPARE} colleges to compare.`}
+              </Typography>
 
-              {/* Comparison placeholder */}
-              <Box sx={{ p: 3, bgcolor: "#f5f5f5", borderRadius: 1, textAlign: "center" }}>
-                <Typography color="text.secondary" sx={{ mb: 2 }}>
-                  Comparing: {selectedColleges.map((c) => c.name).join(", ")}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Comparison details coming soon...
-                </Typography>
-              </Box>
+              <CompareTable
+                colleges={selectedColleges.map((c) =>
+                  toCompareCollege(details[c.slug] ?? c)
+                )}
+                onRemove={handleRemoveFromCompare}
+              />
             </Paper>
           )}
         </>
