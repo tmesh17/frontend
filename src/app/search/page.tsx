@@ -21,12 +21,13 @@ function SearchContent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedColleges, setSelectedColleges] = useState<College[]>([]);
+  const [searchResults, setSearchResults] = useState<College[]>([]);
 
   const loadData = useCallback(async () => {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
     setLoading(true);
     try {
-      const data = await filterColleges({});
+      const data = await filterColleges({ has_data: true });
       setColleges(data);
     } catch (error) {
       const errorMessage =
@@ -43,6 +44,20 @@ function SearchContent() {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
     loadData();
   }, [loadData]);
+
+  const handleSearchSelect = (college: College | null) => {
+    if (college) {
+      // Check if already in search results
+      const alreadySelected = searchResults.some(c => c.slug === college.slug);
+      if (!alreadySelected) {
+        setSearchResults([...searchResults, college]);
+      }
+    }
+  };
+
+  const removeSearchResult = (slug: string) => {
+    setSearchResults(searchResults.filter(c => c.slug !== slug));
+  };
 
   const handleCompareToggle = (college: College) => {
     setSelectedColleges((prev) => {
@@ -63,7 +78,64 @@ function SearchContent() {
 
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
-      <SearchHero />
+      <SearchHero onSearchSelect={handleSearchSelect} />
+
+      {/* Search Results Section */}
+      {searchResults.length > 0 && (
+        <>
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{ mt: 6, mb: 4, fontWeight: 600, color: "text.primary" }}
+          >
+            Search Results
+          </Typography>
+
+          <Grid
+            container
+            spacing={2}
+            component="ul"
+            aria-label="Search results"
+          >
+            {searchResults.map((college) => (
+              <Grid
+                key={college.slug}
+                size={{ xs: 12, sm: 6, md: 4 }}
+                component="li"
+              >
+                <Box sx={{ position: "relative" }}>
+                  <CollegeCard
+                    college={college}
+                    onCompareToggle={handleCompareToggle}
+                    isSelected={isCollegeSelected(college)}
+                  />
+                  <Box
+                    onClick={() => removeSearchResult(college.slug)}
+                    sx={{
+                      position: "absolute",
+                      top: 8,
+                      right: 8,
+                      cursor: "pointer",
+                      bgcolor: "rgba(0,0,0,0.6)",
+                      color: "white",
+                      borderRadius: "50%",
+                      width: 28,
+                      height: 28,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "18px",
+                      "&:hover": { bgcolor: "rgba(0,0,0,0.8)" },
+                    }}
+                  >
+                    ✕
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </>
+      )}
 
       {/* Explore Universities Section */}
       <Typography

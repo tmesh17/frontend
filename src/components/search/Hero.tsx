@@ -2,8 +2,13 @@ import Section from "../common/Section";
 import { Container, Typography, Box } from "@mui/material";
 import Subtitle from "../common/Subtitle";
 import { UniversitySearch } from "../common/UniversitySearch";
+import { College } from "@/types/college";
 
-const SearchHero = () => {
+interface SearchHeroProps {
+  onSearchSelect?: (college: College | null) => void;
+}
+
+const SearchHero = ({ onSearchSelect }: SearchHeroProps) => {
   return (
     <Section id="title-section">
       <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
@@ -14,7 +19,7 @@ const SearchHero = () => {
       <Subtitle sx={{ mx: 0, mb: 1 }}>
         Find universities that support your unique identity and needs.
       </Subtitle>
-      <UniversitySearch />
+      <UniversitySearch onSelect={onSearchSelect} />
     </Section>
   );
 };
