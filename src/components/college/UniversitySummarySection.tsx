@@ -170,9 +170,318 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
         )}
       </Grid>
 
+      {/* Student Demographics - if available */}
+      {summary.student_demographics && (
+        <Box sx={{ mt: 4, pt: 4, borderTop: "1px solid #E0E0E0" }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 600,
+              mb: 3,
+              color: "text.primary",
+              fontSize: "0.9375rem",
+            }}
+          >
+            Student Demographics
+          </Typography>
+          <Grid container spacing={2}>
+            {summary.student_demographics.white_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    White
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.white_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.black_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Black/African American
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.black_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.hispanic_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Hispanic/Latino
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.hispanic_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.asian_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Asian
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.asian_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.american_indian_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    American Indian
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.american_indian_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.multiracial_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Multiracial
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.multiracial_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.other_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Other
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.other_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.first_generation_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    First-Generation
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.first_generation_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.international_students_percentage !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    International Students
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.international_students_percentage.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+            {summary.student_demographics.completion_rate !== undefined && (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.secondary",
+                      fontSize: "0.8125rem",
+                      textTransform: "uppercase",
+                      letterSpacing: 0.3,
+                    }}
+                  >
+                    Completion Rate
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      color: "text.primary",
+                      fontSize: "1.25rem",
+                      mt: 0.5,
+                    }}
+                  >
+                    {summary.student_demographics.completion_rate.toFixed(1)}%
+                  </Typography>
+                </Box>
+              </Grid>
+            )}
+          </Grid>
+        </Box>
+      )}
+
       {/* Additional Info - Left-aligned, spacious */}
       {(summary.degrees_awarded || summary.website_url) && (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5, mt: 4, pt: 4, borderTop: "1px solid #E0E0E0" }}>
           {summary.degrees_awarded && summary.degrees_awarded.length > 0 && (
             <Box>
               <Typography

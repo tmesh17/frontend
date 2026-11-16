@@ -19,6 +19,7 @@ import { College } from "@/types/college";
 import CollegeCard from "@/components/common/CollegeCard";
 import AccessibilityInfoSection from "@/components/college/AccessibilityInfoSection";
 import UniversitySummarySection from "@/components/college/UniversitySummarySection";
+import CityOverviewSection from "@/components/college/CityOverviewSection";
 import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
@@ -124,6 +125,16 @@ export default function CollegeSlugPage({
 
           {/**Accessibility Information Section */}
           <AccessibilityInfoSection info={college.accessibility_info} brandColor={college.brand_color} />
+
+          {/**City Overview Section (transit, cost of living, political climate, diversity) */}
+          {college.accessibility_info?.city_overview && (
+            <CityOverviewSection
+              data={college.accessibility_info.city_overview}
+              city={college.city}
+              state={college.state}
+              brandColor={college.brand_color}
+            />
+          )}
 
           <Grid container spacing={3} py={3} alignItems="start">
             {/* Left Side: Summary Cards (NOT YET IMPLEMENTED, JUST UI PLACEHOLDER) */}
