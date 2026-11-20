@@ -5,7 +5,16 @@
  * Design: WCAG AAA compliant, condensed with expandable sections for better scrollability.
  */
 
-import { Box, Typography, Link, Paper, Divider, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Link,
+  Paper,
+  Divider,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
 import { AccessibilityInfo } from "@/types/college";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -57,6 +66,7 @@ export default function AccessibilityInfoSection({
         >
           <Typography
             variant="h6"
+            component="h3"
             sx={{
               fontWeight: 600,
               mb: 2.5,
@@ -69,7 +79,14 @@ export default function AccessibilityInfoSection({
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {info.dso_phone && (
               <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                <PhoneIcon sx={{ color: accentColor, mt: 0.5, flexShrink: 0, fontSize: "1.25rem" }} />
+                <PhoneIcon
+                  sx={{
+                    color: accentColor,
+                    mt: 0.5,
+                    flexShrink: 0,
+                    fontSize: "1.25rem",
+                  }}
+                />
                 <Box>
                   <Typography
                     variant="caption"
@@ -102,7 +119,14 @@ export default function AccessibilityInfoSection({
             )}
             {info.dso_email && (
               <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                <EmailIcon sx={{ color: accentColor, mt: 0.5, flexShrink: 0, fontSize: "1.25rem" }} />
+                <EmailIcon
+                  sx={{
+                    color: accentColor,
+                    mt: 0.5,
+                    flexShrink: 0,
+                    fontSize: "1.25rem",
+                  }}
+                />
                 <Box>
                   <Typography
                     variant="caption"
@@ -135,7 +159,14 @@ export default function AccessibilityInfoSection({
             )}
             {info.dso_url && (
               <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                <LinkIcon sx={{ color: accentColor, mt: 0.5, flexShrink: 0, fontSize: "1.25rem" }} />
+                <LinkIcon
+                  sx={{
+                    color: accentColor,
+                    mt: 0.5,
+                    flexShrink: 0,
+                    fontSize: "1.25rem",
+                  }}
+                />
                 <Box>
                   <Typography
                     variant="caption"
@@ -195,8 +226,21 @@ export default function AccessibilityInfoSection({
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: "#2E7D32" }} />
-              <Typography sx={{ fontWeight: 600, color: "text.primary", fontSize: "0.95rem" }}>
+              <Box
+                sx={{
+                  width: 4,
+                  height: 4,
+                  borderRadius: "50%",
+                  bgcolor: "#2E7D32",
+                }}
+              />
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  color: "text.primary",
+                  fontSize: "0.95rem",
+                }}
+              >
                 On-Campus Programs & Centers
               </Typography>
             </Box>
@@ -205,32 +249,68 @@ export default function AccessibilityInfoSection({
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
               {info.has_disability_cultural_center && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <CheckCircleIcon sx={{ color: "#2E7D32", flexShrink: 0, fontSize: "1.25rem" }} />
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem" }}>
+                  <CheckCircleIcon
+                    sx={{
+                      color: "#2E7D32",
+                      flexShrink: 0,
+                      fontSize: "1.25rem",
+                    }}
+                  />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.primary", fontSize: "0.9375rem" }}
+                  >
                     Disability Cultural Center
                   </Typography>
                 </Box>
               )}
               {info.has_deaf_culture_center && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <CheckCircleIcon sx={{ color: "#2E7D32", flexShrink: 0, fontSize: "1.25rem" }} />
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem" }}>
+                  <CheckCircleIcon
+                    sx={{
+                      color: "#2E7D32",
+                      flexShrink: 0,
+                      fontSize: "1.25rem",
+                    }}
+                  />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.primary", fontSize: "0.9375rem" }}
+                  >
                     Deaf Culture Center
                   </Typography>
                 </Box>
               )}
               {info.has_disability_studies_program && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <CheckCircleIcon sx={{ color: "#2E7D32", flexShrink: 0, fontSize: "1.25rem" }} />
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem" }}>
+                  <CheckCircleIcon
+                    sx={{
+                      color: "#2E7D32",
+                      flexShrink: 0,
+                      fontSize: "1.25rem",
+                    }}
+                  />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.primary", fontSize: "0.9375rem" }}
+                  >
                     Disability Studies Program
                   </Typography>
                 </Box>
               )}
               {info.has_asl_program && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <CheckCircleIcon sx={{ color: "#2E7D32", flexShrink: 0, fontSize: "1.25rem" }} />
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem" }}>
+                  <CheckCircleIcon
+                    sx={{
+                      color: "#2E7D32",
+                      flexShrink: 0,
+                      fontSize: "1.25rem",
+                    }}
+                  />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.primary", fontSize: "0.9375rem" }}
+                  >
                     American Sign Language (ASL) Program
                   </Typography>
                 </Box>
@@ -241,44 +321,70 @@ export default function AccessibilityInfoSection({
       )}
 
       {/* Accommodations */}
-      {info.accommodations_provided && info.accommodations_provided.length > 0 && (
-        <Accordion
-          sx={{
-            mb: 1.5,
-            "&:before": { display: "none" },
-            border: "1px solid #E0E0E0",
-            borderRadius: 1,
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+      {info.accommodations_provided &&
+        info.accommodations_provided.length > 0 && (
+          <Accordion
             sx={{
-              backgroundColor: "#F8F9FA",
-              "&:hover": { backgroundColor: "#F0F1F3" },
-              py: 1.5,
+              mb: 1.5,
+              "&:before": { display: "none" },
+              border: "1px solid #E0E0E0",
+              borderRadius: 1,
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: "#FFA726" }} />
-              <Typography sx={{ fontWeight: 600, color: "text.primary", fontSize: "0.95rem" }}>
-                Available Accommodations
-              </Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails sx={{ pt: 2.5, pb: 2.5 }}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-              {info.accommodations_provided.map((accommodation, idx) => (
-                <Box key={idx} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <CheckCircleIcon sx={{ color: "#FFA726", flexShrink: 0, fontSize: "1.25rem" }} />
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem" }}>
-                    {accommodation}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-      )}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              sx={{
+                backgroundColor: "#F8F9FA",
+                "&:hover": { backgroundColor: "#F0F1F3" },
+                py: 1.5,
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+                <Box
+                  sx={{
+                    width: 4,
+                    height: 4,
+                    borderRadius: "50%",
+                    bgcolor: "#FFA726",
+                  }}
+                />
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: "text.primary",
+                    fontSize: "0.95rem",
+                  }}
+                >
+                  Available Accommodations
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails sx={{ pt: 2.5, pb: 2.5 }}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                {info.accommodations_provided.map((accommodation, idx) => (
+                  <Box
+                    key={idx}
+                    sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        color: "#FFA726",
+                        flexShrink: 0,
+                        fontSize: "1.25rem",
+                      }}
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.primary", fontSize: "0.9375rem" }}
+                    >
+                      {accommodation}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        )}
 
       {/* Campus Accessibility */}
       {info.campus_accessibility_notes && (
@@ -299,8 +405,21 @@ export default function AccessibilityInfoSection({
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: "#29B6F6" }} />
-              <Typography sx={{ fontWeight: 600, color: "text.primary", fontSize: "0.95rem" }}>
+              <Box
+                sx={{
+                  width: 4,
+                  height: 4,
+                  borderRadius: "50%",
+                  bgcolor: "#29B6F6",
+                }}
+              />
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  color: "text.primary",
+                  fontSize: "0.95rem",
+                }}
+              >
                 Campus Accessibility
               </Typography>
             </Box>
@@ -338,8 +457,21 @@ export default function AccessibilityInfoSection({
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: "#AB47BC" }} />
-              <Typography sx={{ fontWeight: 600, color: "text.primary", fontSize: "0.95rem" }}>
+              <Box
+                sx={{
+                  width: 4,
+                  height: 4,
+                  borderRadius: "50%",
+                  bgcolor: "#AB47BC",
+                }}
+              />
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  color: "text.primary",
+                  fontSize: "0.95rem",
+                }}
+              >
                 Health & Support Services
               </Typography>
             </Box>
@@ -362,7 +494,14 @@ export default function AccessibilityInfoSection({
                   >
                     Counseling Services
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem", lineHeight: 1.6 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.primary",
+                      fontSize: "0.9375rem",
+                      lineHeight: 1.6,
+                    }}
+                  >
                     {info.counseling_services}
                   </Typography>
                 </Box>
@@ -383,7 +522,14 @@ export default function AccessibilityInfoSection({
                   >
                     Health Services
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "text.primary", fontSize: "0.9375rem", lineHeight: 1.6 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.primary",
+                      fontSize: "0.9375rem",
+                      lineHeight: 1.6,
+                    }}
+                  >
                     {info.health_services}
                   </Typography>
                 </Box>

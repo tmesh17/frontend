@@ -22,15 +22,18 @@ interface ReviewFiltersProps {
 }
 
 // Topic color map - using distinct, accessible colors
-const TOPIC_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+const TOPIC_COLORS: Record<
+  string,
+  { bg: string; text: string; border: string }
+> = {
   disability_services: { bg: "#E8F5E9", text: "#1B5E20", border: "#4CAF50" },
   physical_accessibility: { bg: "#E3F2FD", text: "#0D47A1", border: "#2196F3" },
   housing: { bg: "#FCE4EC", text: "#880E4F", border: "#E91E63" },
-  transportation: { bg: "#FFF3E0", text: "#E65100", border: "#FF9800" },
+  transportation: { bg: "#FFF3E0", text: "#9A3412", border: "#FF9800" },
   lgbtq_inclusion: { bg: "#F3E5F5", text: "#4A148C", border: "#9C27B0" },
   safety: { bg: "#FFEBEE", text: "#B71C1C", border: "#F44336" },
   academic_accomodations: { bg: "#E0F2F1", text: "#004D40", border: "#009688" },
-  campus_culture: { bg: "#FFF8E1", text: "#F57F17", border: "#FBC02D" },
+  campus_culture: { bg: "#FFF8E1", text: "#7C5800", border: "#FBC02D" },
 };
 
 // Get all unique topics from reviews
@@ -76,7 +79,9 @@ const formatReviewerType = (type: string): string => {
 
 const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
   const [sortBy, setSortBy] = useState<"recent" | "oldest">("recent");
-  const [selectedReviewerTypes, setSelectedReviewerTypes] = useState<string[]>([]);
+  const [selectedReviewerTypes, setSelectedReviewerTypes] = useState<string[]>(
+    [],
+  );
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 
   // Apply filters whenever any filter changes
@@ -93,7 +98,7 @@ const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
     // Filter by reviewer type
     if (selectedReviewerTypes.length > 0) {
       filtered = filtered.filter((review) =>
-        selectedReviewerTypes.includes(review.relationship_to_university || "")
+        selectedReviewerTypes.includes(review.relationship_to_university || ""),
       );
     }
 
@@ -138,6 +143,7 @@ const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
         <Box>
           <FormControl fullWidth size="small">
             <FormLabel
+              id="sort-label"
               sx={{
                 fontWeight: 600,
                 fontSize: "0.875rem",
@@ -150,6 +156,7 @@ const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
               Sort By
             </FormLabel>
             <Select
+              labelId="sort-label"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as "recent" | "oldest")}
               sx={{
@@ -199,14 +206,17 @@ const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
                         ]);
                       } else {
                         setSelectedReviewerTypes(
-                          selectedReviewerTypes.filter((t) => t !== type)
+                          selectedReviewerTypes.filter((t) => t !== type),
                         );
                       }
                     }}
                   />
                 }
                 label={
-                  <Typography variant="body2" sx={{ ml: 0.5, fontSize: "0.9rem" }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ ml: 0.5, fontSize: "0.9rem" }}
+                  >
                     {formatReviewerType(type)}
                   </Typography>
                 }
@@ -266,7 +276,9 @@ const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
                     label={formatTopicLabel(topic)}
                     onClick={() => {
                       if (isSelected) {
-                        setSelectedTopics(selectedTopics.filter((t) => t !== topic));
+                        setSelectedTopics(
+                          selectedTopics.filter((t) => t !== topic),
+                        );
                       } else {
                         setSelectedTopics([...selectedTopics, topic]);
                       }
@@ -309,7 +321,8 @@ const ReviewFilters = ({ reviews, onFiltersChange }: ReviewFiltersProps) => {
                 fontStyle: "italic",
               }}
             >
-              {activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active
+              {activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""}{" "}
+              active
             </Typography>
             <Button
               size="small"

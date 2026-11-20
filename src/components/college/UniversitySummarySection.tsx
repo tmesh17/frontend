@@ -17,7 +17,10 @@ interface UniversitySummaryProps {
   brandColor?: string;
 }
 
-export default function UniversitySummarySection({ summary, brandColor }: UniversitySummaryProps) {
+export default function UniversitySummarySection({
+  summary,
+  brandColor,
+}: UniversitySummaryProps) {
   if (!summary) {
     return null;
   }
@@ -44,7 +47,9 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
         {summary.total_enrollment && (
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}
+              >
                 <GroupsIcon sx={{ color: accentColor, fontSize: "1.5rem" }} />
                 <Typography
                   variant="caption"
@@ -76,7 +81,9 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
         {summary.undergrad_enrollment && (
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}
+              >
                 <SchoolIcon sx={{ color: accentColor, fontSize: "1.5rem" }} />
                 <Typography
                   variant="caption"
@@ -108,7 +115,9 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
         {summary.school_type && (
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}
+              >
                 <SchoolIcon sx={{ color: accentColor, fontSize: "1.5rem" }} />
                 <Typography
                   variant="caption"
@@ -140,7 +149,9 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
         {summary.school_ownership && (
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}
+              >
                 <BusinessIcon sx={{ color: accentColor, fontSize: "1.5rem" }} />
                 <Typography
                   variant="caption"
@@ -175,6 +186,7 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
         <Box sx={{ mt: 4, pt: 4, borderTop: "1px solid #E0E0E0" }}>
           <Typography
             variant="subtitle2"
+            component="h3"
             sx={{
               fontWeight: 600,
               mb: 3,
@@ -267,7 +279,10 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                       mt: 0.5,
                     }}
                   >
-                    {summary.student_demographics.hispanic_percentage.toFixed(1)}%
+                    {summary.student_demographics.hispanic_percentage.toFixed(
+                      1,
+                    )}
+                    %
                   </Typography>
                 </Box>
               </Grid>
@@ -301,7 +316,8 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                 </Box>
               </Grid>
             )}
-            {summary.student_demographics.american_indian_percentage !== undefined && (
+            {summary.student_demographics.american_indian_percentage !==
+              undefined && (
               <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                 <Box>
                   <Typography
@@ -325,12 +341,16 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                       mt: 0.5,
                     }}
                   >
-                    {summary.student_demographics.american_indian_percentage.toFixed(1)}%
+                    {summary.student_demographics.american_indian_percentage.toFixed(
+                      1,
+                    )}
+                    %
                   </Typography>
                 </Box>
               </Grid>
             )}
-            {summary.student_demographics.multiracial_percentage !== undefined && (
+            {summary.student_demographics.multiracial_percentage !==
+              undefined && (
               <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                 <Box>
                   <Typography
@@ -354,7 +374,10 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                       mt: 0.5,
                     }}
                   >
-                    {summary.student_demographics.multiracial_percentage.toFixed(1)}%
+                    {summary.student_demographics.multiracial_percentage.toFixed(
+                      1,
+                    )}
+                    %
                   </Typography>
                 </Box>
               </Grid>
@@ -388,7 +411,8 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                 </Box>
               </Grid>
             )}
-            {summary.student_demographics.first_generation_percentage !== undefined && (
+            {summary.student_demographics.first_generation_percentage !==
+              undefined && (
               <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                 <Box>
                   <Typography
@@ -412,12 +436,16 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                       mt: 0.5,
                     }}
                   >
-                    {summary.student_demographics.first_generation_percentage.toFixed(1)}%
+                    {summary.student_demographics.first_generation_percentage.toFixed(
+                      1,
+                    )}
+                    %
                   </Typography>
                 </Box>
               </Grid>
             )}
-            {summary.student_demographics.international_students_percentage !== undefined && (
+            {summary.student_demographics.international_students_percentage !==
+              undefined && (
               <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                 <Box>
                   <Typography
@@ -441,7 +469,10 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
                       mt: 0.5,
                     }}
                   >
-                    {summary.student_demographics.international_students_percentage.toFixed(1)}%
+                    {summary.student_demographics.international_students_percentage.toFixed(
+                      1,
+                    )}
+                    %
                   </Typography>
                 </Box>
               </Grid>
@@ -481,11 +512,21 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
 
       {/* Additional Info - Left-aligned, spacious */}
       {(summary.degrees_awarded || summary.website_url) && (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5, mt: 4, pt: 4, borderTop: "1px solid #E0E0E0" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2.5,
+            mt: 4,
+            pt: 4,
+            borderTop: "1px solid #E0E0E0",
+          }}
+        >
           {summary.degrees_awarded && summary.degrees_awarded.length > 0 && (
             <Box>
               <Typography
                 variant="subtitle2"
+                component="h3"
                 sx={{
                   fontWeight: 600,
                   mb: 2,
@@ -512,6 +553,7 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
             <Box>
               <Typography
                 variant="subtitle2"
+                component="h3"
                 sx={{
                   fontWeight: 600,
                   mb: 2,
@@ -546,4 +588,3 @@ export default function UniversitySummarySection({ summary, brandColor }: Univer
     </Box>
   );
 }
-

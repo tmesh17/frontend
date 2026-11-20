@@ -4,7 +4,18 @@
  * Displays city-level information including transit accessibility and diversity.
  */
 
-import { Box, Typography, Paper, LinearProgress, Link, Grid, Card, CardContent, Tabs, Tab } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  LinearProgress,
+  Link,
+  Grid,
+  Card,
+  CardContent,
+  Tabs,
+  Tab,
+} from "@mui/material";
 import { CityOverview } from "@/types/college";
 import { useState } from "react";
 import DirectionsTransitIcon from "@mui/icons-material/DirectionsTransit";
@@ -32,7 +43,7 @@ export default function CityOverviewSection({
 
   const getScoreColor = (score: number) => {
     if (score >= 75) return "#2E7D32";
-    if (score >= 60) return "#F57C00";
+    if (score >= 60) return "#B45309";
     if (score >= 45) return "#D32F2F";
     return "#C62828";
   };
@@ -67,7 +78,8 @@ export default function CityOverviewSection({
           fontSize: "0.9375rem",
         }}
       >
-        Information about the city where the college is located, including transit accessibility and community demographics.
+        Information about the city where the college is located, including
+        transit accessibility and community demographics.
       </Typography>
 
       {/* Tabs */}
@@ -107,12 +119,22 @@ export default function CityOverviewSection({
                   borderRadius: 1,
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "flex-end", gap: 2, mb: 1 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                    gap: 2,
+                    mb: 1,
+                  }}
+                >
                   <Typography
                     variant="h3"
+                    component="p"
                     sx={{
                       fontWeight: 700,
-                      color: getScoreColor(data.transit_accessibility.overall_score),
+                      color: getScoreColor(
+                        data.transit_accessibility.overall_score,
+                      ),
                       fontSize: "2.5rem",
                     }}
                   >
@@ -122,7 +144,9 @@ export default function CityOverviewSection({
                     variant="body1"
                     sx={{
                       fontWeight: 600,
-                      color: getScoreColor(data.transit_accessibility.overall_score),
+                      color: getScoreColor(
+                        data.transit_accessibility.overall_score,
+                      ),
                       mb: 0.5,
                     }}
                   >
@@ -137,10 +161,16 @@ export default function CityOverviewSection({
                     mb: 2,
                   }}
                 >
-                  {getScoreLabel(data.transit_accessibility.overall_score)} public transit accessibility
+                  {getScoreLabel(data.transit_accessibility.overall_score)}{" "}
+                  public transit accessibility
                 </Typography>
                 {data.transit_accessibility.source && (
-                  <Link href="https://transitaccessibility.kines.umich.edu/" target="_blank" rel="noopener noreferrer" sx={{ fontSize: "0.8rem" }}>
+                  <Link
+                    href="https://transitaccessibility.kines.umich.edu/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ fontSize: "0.8rem" }}
+                  >
                     Data from {data.transit_accessibility.source}
                   </Link>
                 )}
@@ -149,21 +179,51 @@ export default function CityOverviewSection({
               {/* Transit Metrics */}
               <Grid container spacing={2}>
                 {[
-                  { label: "Accommodation", value: data.transit_accessibility.accommodation, desc: "Wheelchair accessibility" },
-                  { label: "Adjacency", value: data.transit_accessibility.adjacency, desc: "Distance to stops" },
-                  { label: "Availability", value: data.transit_accessibility.availability, desc: "Service frequency" },
-                  { label: "Affordability", value: data.transit_accessibility.affordability, desc: "Cost of transit" },
-                  { label: "Acceptability", value: data.transit_accessibility.acceptability, desc: "Safety & amenities" },
+                  {
+                    label: "Accommodation",
+                    value: data.transit_accessibility.accommodation,
+                    desc: "Wheelchair accessibility",
+                  },
+                  {
+                    label: "Adjacency",
+                    value: data.transit_accessibility.adjacency,
+                    desc: "Distance to stops",
+                  },
+                  {
+                    label: "Availability",
+                    value: data.transit_accessibility.availability,
+                    desc: "Service frequency",
+                  },
+                  {
+                    label: "Affordability",
+                    value: data.transit_accessibility.affordability,
+                    desc: "Cost of transit",
+                  },
+                  {
+                    label: "Acceptability",
+                    value: data.transit_accessibility.acceptability,
+                    desc: "Safety & amenities",
+                  },
                 ].map(
                   (metric) =>
                     metric.value !== undefined && (
                       <Grid size={{ xs: 12, sm: 6, md: 4 }} key={metric.label}>
                         <Card variant="outlined">
                           <CardContent>
-                            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
+                            <Typography
+                              variant="subtitle2"
+                              sx={{ fontWeight: 600, mb: 0.5 }}
+                            >
                               {metric.label}
                             </Typography>
-                            <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mb: 1.5 }}>
+                            <Typography
+                              variant="caption"
+                              sx={{
+                                color: "text.secondary",
+                                display: "block",
+                                mb: 1.5,
+                              }}
+                            >
                               {metric.desc}
                             </Typography>
                             <Typography
@@ -179,6 +239,7 @@ export default function CityOverviewSection({
                             <LinearProgress
                               variant="determinate"
                               value={metric.value}
+                              aria-label={metric.label}
                               sx={{
                                 height: 6,
                                 borderRadius: 1,
@@ -191,7 +252,7 @@ export default function CityOverviewSection({
                           </CardContent>
                         </Card>
                       </Grid>
-                    )
+                    ),
                 )}
               </Grid>
             </>
@@ -204,27 +265,57 @@ export default function CityOverviewSection({
         <Box>
           <Grid container spacing={2}>
             {[
-              { label: "White", value: data.diversity.white_percentage, color: "#5E35B1" },
-              { label: "Black/African American", value: data.diversity.black_percentage, color: "#1976D2" },
-              { label: "Hispanic/Latino", value: data.diversity.hispanic_percentage, color: "#F57C00" },
-              { label: "Asian", value: data.diversity.asian_percentage, color: "#2E7D32" },
-              { label: "Other/Mixed", value: data.diversity.other_percentage, color: "#C62828" },
+              {
+                label: "White",
+                value: data.diversity.white_percentage,
+                color: "#5E35B1",
+              },
+              {
+                label: "Black/African American",
+                value: data.diversity.black_percentage,
+                color: "#1976D2",
+              },
+              {
+                label: "Hispanic/Latino",
+                value: data.diversity.hispanic_percentage,
+                color: "#B45309",
+              },
+              {
+                label: "Asian",
+                value: data.diversity.asian_percentage,
+                color: "#2E7D32",
+              },
+              {
+                label: "Other/Mixed",
+                value: data.diversity.other_percentage,
+                color: "#C62828",
+              },
             ].map(
               (race) =>
                 race.value !== undefined && (
                   <Grid size={{ xs: 12, sm: 6, md: 4 }} key={race.label}>
                     <Box>
-                      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          mb: 1,
+                        }}
+                      >
                         <Typography variant="body2" sx={{ fontWeight: 600 }}>
                           {race.label}
                         </Typography>
-                        <Typography variant="body2" sx={{ fontWeight: 700, color: race.color }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ fontWeight: 700, color: race.color }}
+                        >
                           {race.value.toFixed(1)}%
                         </Typography>
                       </Box>
                       <LinearProgress
                         variant="determinate"
                         value={race.value}
+                        aria-label={race.label}
                         sx={{
                           height: 8,
                           borderRadius: 1,
@@ -236,7 +327,7 @@ export default function CityOverviewSection({
                       />
                     </Box>
                   </Grid>
-                )
+                ),
             )}
           </Grid>
         </Box>

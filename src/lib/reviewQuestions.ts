@@ -43,7 +43,8 @@ export const reviewQuestions: Question[] = [
     id: "accessibility_rating",
     category: "Step 2",
     type: "star-rating",
-    question: "How would you rate the overall accessibility of this university?",
+    question:
+      "How would you rate the overall accessibility of this university?",
     required: true,
   },
   {
@@ -65,8 +66,10 @@ export const reviewQuestions: Question[] = [
     id: "experience_text",
     category: "Step 2",
     type: "text",
-    question: "What would you want another student to know about your experience at this university?",
-    subtext: "Consider mentioning what worked well, what barriers you encountered, and what you wish had been different.",
+    question:
+      "What would you want another student to know about your experience at this university?",
+    subtext:
+      "Consider mentioning what worked well, what barriers you encountered, and what you wish had been different.",
     multiline: true,
     placeholder: "Share your experience here...",
     required: true,
@@ -97,7 +100,8 @@ export const reviewQuestions: Question[] = [
     category: "Step 3",
     type: "star-rating-optional",
     question: "Disability Services",
-    subtext: "Support and accommodations provided for students with disabilities",
+    subtext:
+      "Support and accommodations provided for students with disabilities",
   },
   {
     id: "academic_accomodations_rating",
@@ -132,7 +136,8 @@ export const reviewQuestions: Question[] = [
     category: "Step 3",
     type: "star-rating-optional",
     question: "Digital Accessibility",
-    subtext: "Accessibility of websites, learning platforms, and course materials",
+    subtext:
+      "Accessibility of websites, learning platforms, and course materials",
   },
   {
     id: "lgbtq_inclusion_rating",
@@ -183,7 +188,8 @@ export const reviewQuestions: Question[] = [
     category: "Step 4",
     type: "select",
     question: "Age (optional)",
-    subtext: "This information is optional and will appear publicly with your review if shared",
+    subtext:
+      "This information is optional and will appear publicly with your review if shared",
     options: ["18-25", "26-35", "36-50", "50+"],
   },
   {
@@ -191,7 +197,8 @@ export const reviewQuestions: Question[] = [
     category: "Step 4",
     type: "select",
     question: "Race/Ethnicity (optional)",
-    subtext: "This information is optional and will appear publicly with your review if shared",
+    subtext:
+      "This information is optional and will appear publicly with your review if shared",
     options: [
       "White",
       "Black / African American",
@@ -216,14 +223,16 @@ export const reviewQuestions: Question[] = [
     category: "Step 4",
     type: "yes-no",
     question: "Are you a first-generation college student? (optional)",
-    subtext: "This information is optional and will appear publicly with your review if shared",
+    subtext:
+      "This information is optional and will appear publicly with your review if shared",
   },
   {
     id: "disability_identity",
     category: "Step 4",
     type: "text",
     question: "Disability identity (optional)",
-    subtext: "This information is optional and will appear publicly with your review if shared",
+    subtext:
+      "This information is optional and will appear publicly with your review if shared",
     placeholder: "e.g., Deaf, blind, mobility disability, ADHD, etc.",
   },
   {
@@ -231,7 +240,8 @@ export const reviewQuestions: Question[] = [
     category: "Step 4",
     type: "text",
     question: "LGBTQ+ identity (optional)",
-    subtext: "This information is optional and will appear publicly with your review if shared",
+    subtext:
+      "This information is optional and will appear publicly with your review if shared",
     placeholder: "e.g., She/her, bisexual; He/him, gay; etc.",
   },
 ];

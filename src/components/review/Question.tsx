@@ -110,6 +110,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           <Select
             name={question.id}
             id={question.id}
+            labelId={`${question.id}-label`}
             value={value || ""}
             onChange={(e) => onChange?.(question.id, e.target.value)}
             fullWidth

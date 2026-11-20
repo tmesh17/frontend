@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Typography,
-  Box,
-  Stack,
-  Rating,
-  Chip,
-} from "@mui/material";
+import { Card, Typography, Box, Stack, Rating, Chip } from "@mui/material";
 import { ReviewEntry } from "@/types/review_entry";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
@@ -18,7 +11,10 @@ interface ReviewCardProps {
  * Formats years into a readable string
  * e.g., "2020-2024" or "2022-present"
  */
-const formatAttendanceYears = (startYear?: number, endYear?: number): string => {
+const formatAttendanceYears = (
+  startYear?: number,
+  endYear?: number,
+): string => {
   if (!startYear && !endYear) return "";
   if (startYear && !endYear) return `${startYear}-present`;
   if (startYear && endYear) return `${startYear}-${endYear}`;
@@ -44,18 +40,35 @@ const formatRelationship = (rel?: string): string => {
 /**
  * Get color for each topic for visual differentiation
  */
-const getTopicColor = (topic: string): { bg: string; text: string; border: string } => {
-  const colorMap: Record<string, { bg: string; text: string; border: string }> = {
-    "disability_services": { bg: "#E8F5E9", text: "#1B5E20", border: "#4CAF50" },
-    "physical_accessibility": { bg: "#E3F2FD", text: "#0D47A1", border: "#2196F3" },
-    "housing": { bg: "#FCE4EC", text: "#880E4F", border: "#E91E63" },
-    "transportation": { bg: "#FFF3E0", text: "#E65100", border: "#FF9800" },
-    "lgbtq_inclusion": { bg: "#F3E5F5", text: "#4A148C", border: "#9C27B0" },
-    "safety": { bg: "#FFEBEE", text: "#B71C1C", border: "#F44336" },
-    "academic_accomodations": { bg: "#E0F2F1", text: "#004D40", border: "#009688" },
-    "campus_culture": { bg: "#FFF8E1", text: "#F57F17", border: "#FBC02D" },
-  };
-  return colorMap[topic] || { bg: "#F5F5F5", text: "#424242", border: "#BDBDBD" };
+const getTopicColor = (
+  topic: string,
+): { bg: string; text: string; border: string } => {
+  const colorMap: Record<string, { bg: string; text: string; border: string }> =
+    {
+      disability_services: {
+        bg: "#E8F5E9",
+        text: "#1B5E20",
+        border: "#4CAF50",
+      },
+      physical_accessibility: {
+        bg: "#E3F2FD",
+        text: "#0D47A1",
+        border: "#2196F3",
+      },
+      housing: { bg: "#FCE4EC", text: "#880E4F", border: "#E91E63" },
+      transportation: { bg: "#FFF3E0", text: "#9A3412", border: "#FF9800" },
+      lgbtq_inclusion: { bg: "#F3E5F5", text: "#4A148C", border: "#9C27B0" },
+      safety: { bg: "#FFEBEE", text: "#B71C1C", border: "#F44336" },
+      academic_accomodations: {
+        bg: "#E0F2F1",
+        text: "#004D40",
+        border: "#009688",
+      },
+      campus_culture: { bg: "#FFF8E1", text: "#7C5800", border: "#FBC02D" },
+    };
+  return (
+    colorMap[topic] || { bg: "#F5F5F5", text: "#424242", border: "#BDBDBD" }
+  );
 };
 
 /**
@@ -82,13 +95,13 @@ const formatCategoryLabel = (key: string): string => {
 const ReviewCard = ({ review }: ReviewCardProps) => {
   const attendanceYears = formatAttendanceYears(
     review.attendance_start_year,
-    review.attendance_end_year
+    review.attendance_end_year,
   );
 
   // Filter out null/undefined reviewer context fields
   const reviewerContextItems = review.reviewer_context
     ? Object.entries(review.reviewer_context).filter(
-        ([, value]) => value !== null && value !== undefined && value !== ""
+        ([, value]) => value !== null && value !== undefined && value !== "",
       )
     : [];
 
@@ -177,7 +190,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                     letterSpacing: "0.5px",
                     display: "block",
                     mb: 0.25,
-                    fontSize: "0.65rem",
+                    fontSize: "0.75rem",
                   }}
                 >
                   Years Attended
@@ -253,7 +266,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                       sx={{
                         color: "text.secondary",
                         fontWeight: 500,
-                        fontSize: "0.7rem",
+                        fontSize: "0.75rem",
                       }}
                     >
                       {displayLabel}
@@ -302,6 +315,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           <Box sx={{ mb: 3, pb: 2, borderBottom: "2px solid #E0E0E0" }}>
             <Typography
               variant="subtitle2"
+              component="h3"
               sx={{
                 fontWeight: 700,
                 color: "text.primary",
@@ -319,8 +333,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                   inclusivity: "Inclusion",
                 };
                 const colors: Record<string, string> = {
-                  accessibility: "#4CAF50",
-                  safety: "#F44336",
+                  accessibility: "#2E7D32",
+                  safety: "#C62828",
                   inclusivity: "#9C27B0",
                 };
 
@@ -383,6 +397,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           <Box sx={{ mb: 3, pb: 2, borderBottom: "2px solid #E0E0E0" }}>
             <Typography
               variant="subtitle2"
+              component="h3"
               sx={{
                 fontWeight: 700,
                 color: "text.primary",
@@ -409,6 +424,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           <Box sx={{ mb: 3, pb: 2, borderBottom: "2px solid #E0E0E0" }}>
             <Typography
               variant="subtitle2"
+              component="h3"
               sx={{
                 fontWeight: 700,
                 color: "text.primary",
@@ -431,9 +447,9 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                 const displayTopic = topic
                   .replace(/_/g, " ")
                   .split(" ")
-                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(" ");
-                
+
                 return (
                   <Chip
                     key={idx}
@@ -463,6 +479,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
             <Box>
               <Typography
                 variant="subtitle2"
+                component="h3"
                 sx={{
                   fontWeight: 700,
                   color: "text.primary",
@@ -473,57 +490,61 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                 Detailed Ratings
               </Typography>
               <Stack spacing={1.2}>
-                {Object.entries(review.category_ratings).map(([category, rating]) => (
-                  <Box
-                    key={category}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      p: 1,
-                      bgcolor: "rgba(0, 0, 0, 0.02)",
-                      borderRadius: 1,
-                      transition: "all 0.2s ease",
-                      "&:hover": {
-                        bgcolor: "rgba(0, 0, 0, 0.04)",
-                      },
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
+                {Object.entries(review.category_ratings).map(
+                  ([category, rating]) => (
+                    <Box
+                      key={category}
                       sx={{
-                        color: "text.primary",
-                        fontWeight: 500,
-                        flex: 1,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        p: 1,
+                        bgcolor: "rgba(0, 0, 0, 0.02)",
+                        borderRadius: 1,
+                        transition: "all 0.2s ease",
+                        "&:hover": {
+                          bgcolor: "rgba(0, 0, 0, 0.04)",
+                        },
                       }}
                     >
-                      {formatCategoryLabel(category)}
-                    </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <Rating
-                        value={rating}
-                        readOnly
-                        size="small"
-                        sx={{
-                          "& .MuiRating-icon": {
-                            color: "#FFC107",
-                          },
-                        }}
-                      />
                       <Typography
-                        variant="caption"
+                        variant="body2"
                         sx={{
-                          fontWeight: 600,
-                          color: "text.secondary",
-                          minWidth: "25px",
-                          textAlign: "right",
+                          color: "text.primary",
+                          fontWeight: 500,
+                          flex: 1,
                         }}
                       >
-                        {rating.toFixed(1)}
+                        {formatCategoryLabel(category)}
                       </Typography>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <Rating
+                          value={rating}
+                          readOnly
+                          size="small"
+                          sx={{
+                            "& .MuiRating-icon": {
+                              color: "#FFC107",
+                            },
+                          }}
+                        />
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            fontWeight: 600,
+                            color: "text.secondary",
+                            minWidth: "25px",
+                            textAlign: "right",
+                          }}
+                        >
+                          {rating.toFixed(1)}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
+                  ),
+                )}
               </Stack>
             </Box>
           )}

@@ -84,6 +84,13 @@ theme = createTheme(theme, {
   },
   components: {
     // REMOVED: MuiCssBaseline styleOverrides (handled by Next.js now)
+    MuiTypography: {
+      defaultProps: {
+        // These text styles were turning into <h6> headings. Now they are
+        // normal text. Use component="h2" (etc.) for real headings.
+        variantMapping: { h6: "p", subtitle1: "p", subtitle2: "p" },
+      },
+    },
     MuiButton: {
       defaultProps: {
         disableRipple: true,

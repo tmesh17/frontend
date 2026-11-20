@@ -28,9 +28,14 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
             <Header /> {/* Header stays at the top */}
             {/* Main tag with ID for the "Skip to Content" link */}
-            <main id="main-content">{children}</main>
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
             <Footer /> {/* Footer stays at the bottom */}
           </ThemeProvider>
         </AppRouterCacheProvider>

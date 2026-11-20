@@ -12,7 +12,7 @@ interface RatingsSectionProps {
 
 const RatingsSection = (props: RatingsSectionProps) => {
   const { ratings, categoryRatings, variant = "compact" } = props;
-  
+
   return (
     <Box>
       <Box
@@ -50,7 +50,7 @@ const RatingsSection = (props: RatingsSectionProps) => {
             label="Inclusivity"
           />
         </Box>
-        
+
         {/* Category Ratings Overview - only show in full variant */}
         {variant === "full" && categoryRatings && (
           <Box sx={{ mt: 2 }}>

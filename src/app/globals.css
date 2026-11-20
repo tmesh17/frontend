@@ -9,3 +9,44 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Accessibility: visible outline on whatever has keyboard focus */
+html :is(a, button, [role="button"], [role="tab"], [tabindex]):focus-visible,
+html .Mui-focusVisible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* No outline on headings we focus with code */
+h2[tabindex="-1"]:focus,
+main:focus {
+  outline: none;
+}
+
+/* Text only screen readers can hear */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* Skip link: hidden until you press Tab */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 2000;
+  padding: 0.75rem 1.25rem;
+  background: white;
+  color: #29527a;
+  font-weight: 700;
+  border: 2px solid #29527a;
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}

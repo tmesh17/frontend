@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main>
+    <>
       <Section id="not-found">
         <Container maxWidth="md">
           <Stack alignItems="center" spacing={4}>
@@ -30,6 +30,6 @@ export default function NotFound() {
           </Stack>
         </Container>
       </Section>
-    </main>
+    </>
   );
 }
