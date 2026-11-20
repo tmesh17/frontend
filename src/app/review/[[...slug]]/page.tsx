@@ -54,6 +54,16 @@ function ReviewPage({ params }: ReviewPageProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const STEPS = ["Step 1", "Step 2", "Step 3", "Step 4"];
 
+  // When the step changes, move keyboard focus to the "Step X of 4" heading
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const previousStep = useRef(currentStep);
+  useEffect(() => {
+    if (previousStep.current !== currentStep) {
+      stepHeadingRef.current?.focus();
+      previousStep.current = currentStep;
+    }
+  }, [currentStep]);
+
   // Filter questions based on conditional logic AND current step
   const visibleQuestions = reviewQuestions.filter((question) => {
     // First check if question belongs to current step category
@@ -205,7 +215,15 @@ function ReviewPage({ params }: ReviewPageProps) {
 
         {/* Progress indicator */}
         <Box sx={{ color: "white", textAlign: "center", flex: 1 }}>
-          <Typography variant="caption" sx={{ mt: 1, display: "block" }}>
+          <Typography variant="h4" component="h1">
+            Write a Review
+          </Typography>
+          <Typography
+            component="h2"
+            ref={stepHeadingRef}
+            tabIndex={-1}
+            sx={{ mt: 1, fontWeight: 600 }}
+          >
             Step {currentStep + 1} of {STEPS.length}
           </Typography>
         </Box>

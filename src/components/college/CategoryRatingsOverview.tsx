@@ -39,7 +39,7 @@ const CATEGORY_ORDER = [
   "transportation",
   "digital_accessibility",
   "academic_accomodations",
-  
+
   // Inclusivity & Community
   "lgbtq_inclusion",
   "racial_cultural_inclusion",
@@ -57,19 +57,21 @@ const CategoryRatingsOverview = ({
   }
 
   // Sort by defined category order
-  const sortedCategories = Object.entries(categoryRatings).sort(([keyA], [keyB]) => {
-    const indexA = CATEGORY_ORDER.indexOf(keyA);
-    const indexB = CATEGORY_ORDER.indexOf(keyB);
-    // If both are in the order list, use that order
-    if (indexA !== -1 && indexB !== -1) {
-      return indexA - indexB;
-    }
-    // If only one is in the order list, it comes first
-    if (indexA !== -1) return -1;
-    if (indexB !== -1) return 1;
-    // Otherwise, sort alphabetically
-    return keyA.localeCompare(keyB);
-  });
+  const sortedCategories = Object.entries(categoryRatings).sort(
+    ([keyA], [keyB]) => {
+      const indexA = CATEGORY_ORDER.indexOf(keyA);
+      const indexB = CATEGORY_ORDER.indexOf(keyB);
+      // If both are in the order list, use that order
+      if (indexA !== -1 && indexB !== -1) {
+        return indexA - indexB;
+      }
+      // If only one is in the order list, it comes first
+      if (indexA !== -1) return -1;
+      if (indexB !== -1) return 1;
+      // Otherwise, sort alphabetically
+      return keyA.localeCompare(keyB);
+    },
+  );
 
   // Split into two columns
   const midpoint = Math.ceil(sortedCategories.length / 2);
@@ -80,6 +82,7 @@ const CategoryRatingsOverview = ({
     <Box sx={{ mt: 2 }}>
       <Typography
         variant="subtitle2"
+        component="h2"
         sx={{
           fontWeight: 700,
           color: "text.primary",
@@ -118,7 +121,7 @@ const CategoryRatingsOverview = ({
                     variant="caption"
                     sx={{
                       color: "text.secondary",
-                      fontSize: "0.7rem",
+                      fontSize: "0.8rem",
                     }}
                   >
                     {data.count} contributor{data.count > 1 ? "s" : ""}
@@ -181,7 +184,7 @@ const CategoryRatingsOverview = ({
                     variant="caption"
                     sx={{
                       color: "text.secondary",
-                      fontSize: "0.7rem",
+                      fontSize: "0.8rem",
                     }}
                   >
                     {data.count} contributor{data.count > 1 ? "s" : ""}

@@ -30,7 +30,7 @@ const Footer = () => {
             </Box>
 
             <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
+              <Typography variant="subtitle1" component="h2" sx={{ fontWeight: 700, mb: 1 }}>
                 Join Us?
               </Typography>
               <Typography variant="body2">
@@ -42,7 +42,6 @@ const Footer = () => {
                   href="https://github.com/collegescore/documentation/blob/main/CONTRIBUTING.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Learn how to contribute on GitHub (opens in a new tab)"
                   sx={{
                     color: "common.white",
                     display: "inline-flex",
@@ -51,7 +50,7 @@ const Footer = () => {
                     "&:hover": { textDecoration: "underline" },
                   }}
                 >
-                  here
+                  on GitHub
                   <OpenInNewIcon
                     aria-hidden="true"
                     sx={{ fontSize: "0.9rem", ml: 0.5 }}
@@ -65,6 +64,7 @@ const Footer = () => {
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <Typography
               variant="subtitle1"
+              component="h2"
               id="footer-links"
               sx={{ fontWeight: 700, mb: 2 }}
             >
@@ -122,7 +122,7 @@ const Footer = () => {
 
           {/* Column 3: CREATE Acknowledgment */}
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
+            <Typography variant="subtitle1" component="h2" sx={{ fontWeight: 700, mb: 2 }}>
               Acknowledgment
             </Typography>
             <Typography variant="body2">

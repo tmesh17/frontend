@@ -12,9 +12,9 @@ interface StarRatingLabelBoxProps {
  */
 const getRatingColor = (label: string): string => {
   const colorMap: Record<string, string> = {
-    "Accessibility": "#4CAF50",
-    "Safety": "#F44336",
-    "Inclusivity": "#9C27B0",
+    Accessibility: "#2E7D32",
+    Safety: "#C62828",
+    Inclusivity: "#9C27B0",
   };
   return colorMap[label] || "#1976D2"; // Default to blue if label doesn't match
 };
@@ -44,8 +44,12 @@ export const StarRatingLabelBox = ({
         }}
       >
         <StarRateRoundedIcon sx={{ color: ratingColor }} />
-        <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1, color: ratingColor }}>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 800, lineHeight: 1, color: ratingColor }}
+        >
           {rating}
+          <span className="sr-only"> out of 5</span>
         </Typography>
       </Box>
       <Typography

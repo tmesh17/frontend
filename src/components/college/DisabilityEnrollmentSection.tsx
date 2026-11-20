@@ -5,7 +5,16 @@
  * Includes breakdown by disability type and comparative context.
  */
 
-import { Box, Typography, Card, CardContent, Grid, LinearProgress, Paper, Tooltip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  LinearProgress,
+  Paper,
+  Tooltip,
+} from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
 interface DisabilityEnrollmentData {
@@ -33,61 +42,63 @@ const disabilityTypes = [
     label: "Deaf/Hard of Hearing",
     key: "deaf_hoh_percentage",
     color: "#FF6B6B",
-    description: "Students who are deaf or hard of hearing"
+    description: "Students who are deaf or hard of hearing",
   },
   {
     label: "Blind/Low Vision",
     key: "blind_low_vision_percentage",
     color: "#4ECDC4",
-    description: "Students with visual impairments"
+    description: "Students with visual impairments",
   },
   {
     label: "Mobility",
     key: "mobility_percentage",
     color: "#45B7D1",
-    description: "Students with mobility disabilities"
+    description: "Students with mobility disabilities",
   },
   {
     label: "Orthopedic",
     key: "orthopedic_percentage",
     color: "#96CEB4",
-    description: "Students with orthopedic impairments"
+    description: "Students with orthopedic impairments",
   },
   {
     label: "Autism",
     key: "autism_percentage",
     color: "#FFEAA7",
-    description: "Students on the autism spectrum"
+    description: "Students on the autism spectrum",
   },
   {
     label: "ADHD",
     key: "adhd_percentage",
     color: "#DFE6E9",
-    description: "Students with ADHD"
+    description: "Students with ADHD",
   },
   {
     label: "Learning Disability",
     key: "learning_disability_percentage",
     color: "#A29BFE",
-    description: "Students with learning disabilities (dyslexia, dyscalculia, etc.)"
+    description:
+      "Students with learning disabilities (dyslexia, dyscalculia, etc.)",
   },
   {
     label: "Mental Health",
     key: "mental_health_percentage",
     color: "#FD79A8",
-    description: "Students with mental health conditions (depression, anxiety, etc.)"
+    description:
+      "Students with mental health conditions (depression, anxiety, etc.)",
   },
   {
     label: "Traumatic Brain Injury",
     key: "traumatic_brain_injury_percentage",
     color: "#FDCB6E",
-    description: "Students with traumatic brain injuries"
+    description: "Students with traumatic brain injuries",
   },
   {
     label: "Other Disabilities",
     key: "other_disability_percentage",
     color: "#B8B8B8",
-    description: "Other disabilities not listed above"
+    description: "Other disabilities not listed above",
   },
 ];
 
@@ -155,7 +166,10 @@ export default function DisabilityEnrollmentSection({
           </Typography>
         </Box>
         {data.note && (
-          <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 1 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: "text.secondary", display: "block", mt: 1 }}
+          >
             {data.note}
           </Typography>
         )}
@@ -175,15 +189,27 @@ export default function DisabilityEnrollmentSection({
 
       <Grid container spacing={2}>
         {disabilityTypes
-          .filter((type) => data[type.key as keyof DisabilityEnrollmentData] !== undefined)
+          .filter(
+            (type) =>
+              data[type.key as keyof DisabilityEnrollmentData] !== undefined,
+          )
           .map((type) => {
-            const value = data[type.key as keyof DisabilityEnrollmentData] as number;
+            const value = data[
+              type.key as keyof DisabilityEnrollmentData
+            ] as number;
             return (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={type.key}>
                 <Card variant="outlined" sx={{ height: "100%" }}>
                   <CardContent>
                     <Tooltip title={type.description}>
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                          mb: 1.5,
+                        }}
+                      >
                         <Typography
                           variant="subtitle2"
                           sx={{
@@ -194,7 +220,9 @@ export default function DisabilityEnrollmentSection({
                         >
                           {type.label}
                         </Typography>
-                        <InfoIcon sx={{ fontSize: "0.9rem", color: "text.secondary" }} />
+                        <InfoIcon
+                          sx={{ fontSize: "0.9rem", color: "text.secondary" }}
+                        />
                       </Box>
                     </Tooltip>
 
@@ -249,7 +277,10 @@ export default function DisabilityEnrollmentSection({
             display: "block",
           }}
         >
-          Students may identify with multiple disabilities, so percentages may not sum to the total disability enrollment percentage. Contact the Disability Services Office for more detailed information about support available for specific disability types.
+          Students may identify with multiple disabilities, so percentages may
+          not sum to the total disability enrollment percentage. Contact the
+          Disability Services Office for more detailed information about support
+          available for specific disability types.
         </Typography>
       </Paper>
     </Box>

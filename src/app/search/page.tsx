@@ -8,7 +8,9 @@ import {
   CircularProgress,
   Grid,
   Paper,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
@@ -52,7 +54,9 @@ function SearchContent() {
   // ---- Search (teammate) ----
   const handleSearchSelect = (college: College | null) => {
     if (college) {
-      const alreadySelected = searchResults.some((c) => c.slug === college.slug);
+      const alreadySelected = searchResults.some(
+        (c) => c.slug === college.slug,
+      );
       if (!alreadySelected) {
         setSearchResults([...searchResults, college]);
       }
@@ -66,7 +70,7 @@ function SearchContent() {
   // The search box can return a lighter version of a college, so use the full
   // record from the loaded list when we have it (it includes the ratings).
   const searchResultsFull = searchResults.map(
-    (c) => colleges.find((full) => full.slug === c.slug) ?? c
+    (c) => colleges.find((full) => full.slug === c.slug) ?? c,
   );
 
   // ---- Compare (yours) ----
@@ -87,7 +91,9 @@ function SearchContent() {
     if (!isSelected && selectedColleges.length >= MAX_COMPARE) return;
 
     if (isSelected) {
-      setSelectedColleges((prev) => prev.filter((c) => c.slug !== college.slug));
+      setSelectedColleges((prev) =>
+        prev.filter((c) => c.slug !== college.slug),
+      );
     } else {
       setSelectedColleges((prev) => [...prev, college]);
       loadDetails(college.slug);
@@ -138,27 +144,20 @@ function SearchContent() {
                     onCompareToggle={handleCompareToggle}
                     isSelected={isCollegeSelected(college)}
                   />
-                  <Box
+                  <IconButton
                     onClick={() => removeSearchResult(college.slug)}
+                    aria-label={`Remove ${college.name}`}
+                    size="small"
                     sx={{
                       position: "absolute",
                       top: 8,
                       right: 8,
-                      cursor: "pointer",
-                      bgcolor: "rgba(0,0,0,0.6)",
+                      bgcolor: "rgba(0,0,0,0.7)",
                       color: "white",
-                      borderRadius: "50%",
-                      width: 28,
-                      height: 28,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "18px",
-                      "&:hover": { bgcolor: "rgba(0,0,0,0.8)" },
                     }}
                   >
-                    ✕
-                  </Box>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
                 </Box>
               </Grid>
             ))}
@@ -238,7 +237,7 @@ function SearchContent() {
 
               <CompareTable
                 colleges={selectedColleges.map((c) =>
-                  toCompareCollege(details[c.slug] ?? c)
+                  toCompareCollege(details[c.slug] ?? c),
                 )}
                 onRemove={handleRemoveFromCompare}
               />

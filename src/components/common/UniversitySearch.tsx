@@ -126,6 +126,10 @@ export const UniversitySearch = ({
           <TextField
             {...params}
             placeholder="Search by school name or location"
+            inputProps={{
+              ...params.inputProps,
+              "aria-label": "Search colleges",
+            }}
             InputProps={{
               ...params.InputProps,
               startAdornment: (

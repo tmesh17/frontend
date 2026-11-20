@@ -39,11 +39,31 @@ export default function TransitAccessibilitySection({
   };
 
   const metrics = [
-    { label: "Accommodation", value: data.accommodation, description: "Wheelchair accessibility & elevators" },
-    { label: "Adjacency", value: data.adjacency, description: "Distance to nearest stops" },
-    { label: "Availability", value: data.availability, description: "Frequency of service" },
-    { label: "Affordability", value: data.affordability, description: "Cost of passes/fares" },
-    { label: "Acceptability", value: data.acceptability, description: "Safety, stops, timetables" },
+    {
+      label: "Accommodation",
+      value: data.accommodation,
+      description: "Wheelchair accessibility & elevators",
+    },
+    {
+      label: "Adjacency",
+      value: data.adjacency,
+      description: "Distance to nearest stops",
+    },
+    {
+      label: "Availability",
+      value: data.availability,
+      description: "Frequency of service",
+    },
+    {
+      label: "Affordability",
+      value: data.affordability,
+      description: "Cost of passes/fares",
+    },
+    {
+      label: "Acceptability",
+      value: data.acceptability,
+      description: "Safety, stops, timetables",
+    },
   ];
 
   return (
@@ -61,7 +81,9 @@ export default function TransitAccessibilitySection({
           gap: 1.5,
         }}
       >
-        <DirectionsTransitIcon sx={{ fontSize: { xs: "1.75rem", md: "2.125rem" } }} />
+        <DirectionsTransitIcon
+          sx={{ fontSize: { xs: "1.75rem", md: "2.125rem" } }}
+        />
         Public Transit Accessibility
       </Typography>
 
@@ -78,7 +100,12 @@ export default function TransitAccessibilitySection({
         {data.source && (
           <>
             {" "}
-            · <Link href="https://transitaccessibility.kines.umich.edu/" target="_blank" rel="noopener noreferrer">
+            ·{" "}
+            <Link
+              href="https://transitaccessibility.kines.umich.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {data.source}
             </Link>
           </>
@@ -126,7 +153,8 @@ export default function TransitAccessibilitySection({
               fontSize: "0.9375rem",
             }}
           >
-            {getScoreLabel(data.overall_score)} transit accessibility for the {data.city} area
+            {getScoreLabel(data.overall_score)} transit accessibility for the{" "}
+            {data.city} area
           </Typography>
         </Paper>
       )}
@@ -192,7 +220,7 @@ export default function TransitAccessibilitySection({
                   }}
                 />
               </Box>
-            )
+            ),
         )}
       </Box>
 
@@ -216,8 +244,10 @@ export default function TransitAccessibilitySection({
             display: "block",
           }}
         >
-          This data reflects the city's overall public transit system accessibility based on federal data.
-          Campus-specific transit access may vary. Contact the Disability Services Office for campus-specific information.
+          This data reflects the city&apos;s overall public transit system
+          accessibility based on federal data. Campus-specific transit access
+          may vary. Contact the Disability Services Office for campus-specific
+          information.
         </Typography>
       </Paper>
     </Box>

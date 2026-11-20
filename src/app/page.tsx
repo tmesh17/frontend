@@ -6,11 +6,9 @@ import HeroSection from "@/components/home/Hero";
 function App() {
   return (
     <>
-      <main>
-        <DataCollectionPopup />
-        <HeroSection />
-        <CTASection />
-      </main>
+      <DataCollectionPopup />
+      <HeroSection />
+      <CTASection />
     </>
   );
 }

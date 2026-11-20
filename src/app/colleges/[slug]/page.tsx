@@ -85,7 +85,9 @@ export default function CollegeSlugPage({
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
       // Scroll to reviews section
-      document.getElementById("reviews-header")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("reviews-header")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -93,7 +95,9 @@ export default function CollegeSlugPage({
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       // Scroll to reviews section
-      document.getElementById("reviews-header")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("reviews-header")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -121,10 +125,16 @@ export default function CollegeSlugPage({
           <CollegeCard variant="hero" college={college} />
 
           {/**University Summary Section (Campus Overview) */}
-          <UniversitySummarySection summary={college.university_summary} brandColor={college.brand_color} />
+          <UniversitySummarySection
+            summary={college.university_summary}
+            brandColor={college.brand_color}
+          />
 
           {/**Accessibility Information Section */}
-          <AccessibilityInfoSection info={college.accessibility_info} brandColor={college.brand_color} />
+          <AccessibilityInfoSection
+            info={college.accessibility_info}
+            brandColor={college.brand_color}
+          />
 
           {/**City Overview Section (transit, cost of living, political climate, diversity) */}
           {college.accessibility_info?.city_overview && (
@@ -231,9 +241,11 @@ export default function CollegeSlugPage({
                     disabled={currentPage === 1}
                     aria-label="Previous page"
                     sx={{
-                      color: currentPage === 1 ? "action.disabled" : "primary.main",
+                      color:
+                        currentPage === 1 ? "action.disabled" : "primary.main",
                       "&:hover": {
-                        bgcolor: currentPage === 1 ? "transparent" : "action.hover",
+                        bgcolor:
+                          currentPage === 1 ? "transparent" : "action.hover",
                       },
                     }}
                   >
@@ -257,9 +269,15 @@ export default function CollegeSlugPage({
                     disabled={currentPage === totalPages}
                     aria-label="Next page"
                     sx={{
-                      color: currentPage === totalPages ? "action.disabled" : "primary.main",
+                      color:
+                        currentPage === totalPages
+                          ? "action.disabled"
+                          : "primary.main",
                       "&:hover": {
-                        bgcolor: currentPage === totalPages ? "transparent" : "action.hover",
+                        bgcolor:
+                          currentPage === totalPages
+                            ? "transparent"
+                            : "action.hover",
                       },
                     }}
                   >

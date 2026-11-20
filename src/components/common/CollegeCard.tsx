@@ -16,12 +16,12 @@ type CollegeCardProps = {
 
 /**College Card component can have varients for cards or make the card into a hero for the college page */
 const CollegeCard = (props: CollegeCardProps) => {
-  const { 
-    college, 
-    variant = "card", 
+  const {
+    college,
+    variant = "card",
     showHover = variant === "card",
     onCompareToggle,
-    isSelected = false
+    isSelected = false,
   } = props;
 
   return (
@@ -35,7 +35,10 @@ const CollegeCard = (props: CollegeCardProps) => {
         height: variant === "card" ? "100%" : "auto",
         display: "flex",
         flexDirection: "column",
-        borderLeft: variant === "card" ? `6px solid ${college.brand_color || "#9C27B0"}` : "none",
+        borderLeft:
+          variant === "card"
+            ? `6px solid ${college.brand_color || "#9C27B0"}`
+            : "none",
         ...(showHover && {
           transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
           "&:hover": {
@@ -47,33 +50,35 @@ const CollegeCard = (props: CollegeCardProps) => {
     >
       {/* Color accent bar for hero variant */}
       {variant === "hero" && (
-        <Box 
-          sx={{ 
-            height: 4, 
+        <Box
+          sx={{
+            height: 4,
             bgcolor: college.brand_color || "#9C27B0",
-            width: "100%"
-          }} 
+            width: "100%",
+          }}
         />
       )}
 
       <CardContent
-        sx={{ 
-          p: variant === "card" ? 2 : 3, 
-          flexGrow: 1, 
-          display: "flex", 
-          flexDirection: "column" 
+        sx={{
+          p: variant === "card" ? 2 : 3,
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {/* header section with the college name and location */}
         <header>
           <Typography
             variant={variant === "card" ? "h6" : "h5"}
-            component={variant === "hero" ? "h1" : variant === "card" ? "h3" : "h3"}
-            sx={{ 
-              fontWeight: variant === "card" ? 700 : 800, 
-              color: "text.primary", 
+            component={
+              variant === "hero" ? "h1" : variant === "card" ? "h3" : "h3"
+            }
+            sx={{
+              fontWeight: variant === "card" ? 700 : 800,
+              color: "text.primary",
               mb: 0.25,
-              fontSize: variant === "card" ? "1rem" : undefined
+              fontSize: variant === "card" ? "1rem" : undefined,
             }}
           >
             {college.name}
@@ -91,7 +96,10 @@ const CollegeCard = (props: CollegeCardProps) => {
               variant="caption"
               component="p"
               color="text.secondary"
-              sx={{ fontStyle: "italic", fontSize: variant === "card" ? "0.7rem" : "0.75rem" }}
+              sx={{
+                fontStyle: "italic",
+                fontSize: variant === "card" ? "0.75rem" : "0.75rem",
+              }}
             >
               {college.university_type}
             </Typography>
@@ -100,8 +108,8 @@ const CollegeCard = (props: CollegeCardProps) => {
 
         {/* Ratings Section */}
         <Box sx={{ my: variant === "card" ? 1 : 2 }}>
-          <RatingsSection 
-            ratings={college.ratings || {}} 
+          <RatingsSection
+            ratings={college.ratings || {}}
             categoryRatings={college.category_rating_averages}
             variant={variant === "hero" ? "full" : "compact"}
           />
@@ -121,7 +129,10 @@ const CollegeCard = (props: CollegeCardProps) => {
           }}
         >
           {variant === "card" && (
-            <Typography variant="caption" sx={{ color: "text.secondary", fontSize: "0.65rem" }}>
+            <Typography
+              variant="caption"
+              sx={{ color: "text.secondary", fontSize: "0.75rem" }}
+            >
               {college.num_reviews} reviews
             </Typography>
           )}
@@ -132,9 +143,11 @@ const CollegeCard = (props: CollegeCardProps) => {
                 <BasicButton
                   text={isSelected ? "✓ Compare" : "+ Compare"}
                   onClick={() => onCompareToggle(college)}
-                  sx={{ 
-                    fontSize: "0.7rem", 
-                    px: 1, 
+                  ariaLabel={`Compare ${college.name}`}
+                  aria-pressed={isSelected}
+                  sx={{
+                    fontSize: "0.875rem",
+                    px: 1,
                     py: 0.4,
                     bgcolor: isSelected ? "primary.main" : "inherit",
                     color: isSelected ? "white" : "primary.main",
@@ -145,6 +158,7 @@ const CollegeCard = (props: CollegeCardProps) => {
               <BasicButton
                 text="See More"
                 href={`/colleges/${college.slug}`}
+                ariaLabel={`See more about ${college.name}`}
                 sx={{ fontSize: "0.75rem", px: 1.5, py: 0.4 }}
               />
             </Box>
